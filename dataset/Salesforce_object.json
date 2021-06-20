@@ -1,0 +1,15 @@
+{
+	"name": "Salesforce_object",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SalesforceBaoDemo2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SalesforceObject",
+		"schema": [],
+		"typeProperties": {
+			"objectApiName": "Account"
+		}
+	}
+}
