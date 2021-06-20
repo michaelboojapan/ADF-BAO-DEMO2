@@ -1,0 +1,32 @@
+{
+	"name": "transorm sass",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "input_sass_file",
+						"type": "DatasetReference"
+					},
+					"name": "SassSource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "output_sass_file",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\tex_id__c as string,\n\t\tName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> SassSource\nSassSource derive(Name = iif(isInteger(substring(Name, 10,1)), substring(Name, 1,9) + toString(add(toInteger(substring(Name, 10,1)), 1)) +substring(Name, 11), Name)) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tex_id__c as string,\n\t\tName as string\n\t),\n\tpartitionFileNames:['sass-file.csv'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
+		}
+	}
+}
