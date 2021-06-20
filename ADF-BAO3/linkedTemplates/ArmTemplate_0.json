@@ -353,7 +353,7 @@
 							},
 							"staging": {},
 							"compute": {
-								"coreCount": 32,
+								"coreCount": 80,
 								"computeType": "General"
 							},
 							"traceLevel": "Fine"
