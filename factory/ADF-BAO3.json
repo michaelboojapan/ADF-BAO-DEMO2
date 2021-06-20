@@ -1,0 +1,9 @@
+{
+	"name": "ADF-BAO3",
+	"location": "japaneast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "09b925b1-8f8a-4ef2-9eff-5bf2ff3489b3",
+		"tenantId": "e67df547-9d0d-4f4d-9161-51c6ed1f7d11"
+	}
+}
