@@ -1,5 +1,5 @@
 {
-	"name": "output_sass_file",
+	"name": "output_sass_file_with_file_name",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorageBaoDemo2",
@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "sass-file.csv",
 				"folderPath": "output",
 				"container": "containerbao"
 			},

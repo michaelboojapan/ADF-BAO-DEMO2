@@ -183,7 +183,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "output_sass_file",
+						"referenceName": "output_sass_file_with_file_name",
 						"type": "DatasetReference"
 					}
 				],
