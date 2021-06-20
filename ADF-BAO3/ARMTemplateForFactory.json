@@ -148,7 +148,7 @@
 							"staging": {},
 							"compute": {
 								"coreCount": 144,
-								"computeType": "General"
+								"computeType": "ComputeOptimized"
 							},
 							"traceLevel": "Fine"
 						}
