@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-BAO3"
+		},
+		"AzureBlobStorageBaoDemo2_connectionString": {
+			"value": ""
+		},
+		"SalesforceBaoDemo2_password": {
+			"value": ""
+		},
+		"SalesforceBaoDemo2_securityToken": {
+			"value": ""
+		},
+		"SalesforceBaoDemo2_properties_typeProperties_environmentUrl": {
+			"value": "https://floboard2-dev-ed.my.salesforce.com"
+		},
+		"SalesforceBaoDemo2_properties_typeProperties_username": {
+			"value": "etl.dev.user001@gmail.com"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

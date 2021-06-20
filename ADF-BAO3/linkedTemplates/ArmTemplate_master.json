@@ -1,0 +1,77 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-BAO3"
+		},
+		"AzureBlobStorageBaoDemo2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageBaoDemo2'"
+		},
+		"SalesforceBaoDemo2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SalesforceBaoDemo2'"
+		},
+		"SalesforceBaoDemo2_securityToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'securityToken' of 'SalesforceBaoDemo2'"
+		},
+		"SalesforceBaoDemo2_properties_typeProperties_environmentUrl": {
+			"type": "string",
+			"defaultValue": "https://floboard2-dev-ed.my.salesforce.com"
+		},
+		"SalesforceBaoDemo2_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "etl.dev.user001@gmail.com"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ADF-BAO3_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorageBaoDemo2_connectionString": {
+						"value": "[parameters('AzureBlobStorageBaoDemo2_connectionString')]"
+					},
+					"SalesforceBaoDemo2_password": {
+						"value": "[parameters('SalesforceBaoDemo2_password')]"
+					},
+					"SalesforceBaoDemo2_securityToken": {
+						"value": "[parameters('SalesforceBaoDemo2_securityToken')]"
+					},
+					"SalesforceBaoDemo2_properties_typeProperties_environmentUrl": {
+						"value": "[parameters('SalesforceBaoDemo2_properties_typeProperties_environmentUrl')]"
+					},
+					"SalesforceBaoDemo2_properties_typeProperties_username": {
+						"value": "[parameters('SalesforceBaoDemo2_properties_typeProperties_username')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
