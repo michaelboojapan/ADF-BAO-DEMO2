@@ -147,7 +147,7 @@
 							},
 							"staging": {},
 							"compute": {
-								"coreCount": 80,
+								"coreCount": 144,
 								"computeType": "General"
 							},
 							"traceLevel": "Fine"
