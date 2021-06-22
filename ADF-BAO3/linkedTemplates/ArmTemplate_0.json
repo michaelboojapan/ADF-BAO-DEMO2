@@ -176,7 +176,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "sass-file.csv",
+						"fileName": "sass-files.csv",
 						"folderPath": "output",
 						"container": "containerbao"
 					},
