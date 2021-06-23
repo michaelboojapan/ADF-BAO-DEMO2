@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "bao1.zip",
+				"fileName": "bao2.zip",
 				"folderPath": "input",
 				"container": "containerbao"
 			},
