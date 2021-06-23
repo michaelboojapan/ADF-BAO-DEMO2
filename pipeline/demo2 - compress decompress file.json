@@ -46,7 +46,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "inputTextFile",
+						"referenceName": "outputTextFile",
 						"type": "DatasetReference"
 					}
 				]
