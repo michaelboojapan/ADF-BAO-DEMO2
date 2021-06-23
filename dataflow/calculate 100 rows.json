@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "output100",
+						"referenceName": "outputCalculationResult",
 						"type": "DatasetReference"
 					},
 					"name": "outputResult"
