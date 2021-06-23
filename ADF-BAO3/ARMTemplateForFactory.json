@@ -415,6 +415,92 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/demo4 - calculate 100000 record')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "calculate 100000 record",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "calculate 100000 rows",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"inputSource": {},
+									"outputResult": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/calculate 100000 rows')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/demo4 - calculate 10000000 record')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "calculate 10000000 record",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "calculate 10000000 rows",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"inputSource": {},
+									"outputResult": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/calculate 10000000 rows')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Salesforce_object')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -902,6 +988,82 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/input100')]",
+				"[concat(variables('factoryId'), '/datasets/outputCalculationResult')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/calculate 100000 rows')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "input100000",
+								"type": "DatasetReference"
+							},
+							"name": "inputSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "outputCalculationResult",
+								"type": "DatasetReference"
+							},
+							"name": "outputResult"
+						}
+					],
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\ta as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> inputSource\ninputSource derive(a = ((toInteger(a) + 10 -1 ) *10) / 5) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tex_id__c as string,\n\t\tName as string\n\t),\n\tpartitionFileNames:['calculation_100000.csv'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> outputResult"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/input100000')]",
+				"[concat(variables('factoryId'), '/datasets/outputCalculationResult')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/calculate 10000000 rows')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "input10000000",
+								"type": "DatasetReference"
+							},
+							"name": "inputSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "outputCalculationResult",
+								"type": "DatasetReference"
+							},
+							"name": "outputResult"
+						}
+					],
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\ta as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> inputSource\ninputSource derive(a = ((toInteger(a) + 10 -1 ) *10) / 5) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tex_id__c as string,\n\t\tName as string\n\t),\n\tpartitionFileNames:['calculation_10000000.csv'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> outputResult"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/input10000000')]",
 				"[concat(variables('factoryId'), '/datasets/outputCalculationResult')]"
 			]
 		},

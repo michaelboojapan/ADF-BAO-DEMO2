@@ -614,6 +614,82 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/calculate 100000 rows')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "input100000",
+								"type": "DatasetReference"
+							},
+							"name": "inputSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "outputCalculationResult",
+								"type": "DatasetReference"
+							},
+							"name": "outputResult"
+						}
+					],
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\ta as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> inputSource\ninputSource derive(a = ((toInteger(a) + 10 -1 ) *10) / 5) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tex_id__c as string,\n\t\tName as string\n\t),\n\tpartitionFileNames:['calculation_100000.csv'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> outputResult"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/input100000')]",
+				"[concat(variables('factoryId'), '/datasets/outputCalculationResult')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/calculate 10000000 rows')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "input10000000",
+								"type": "DatasetReference"
+							},
+							"name": "inputSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "outputCalculationResult",
+								"type": "DatasetReference"
+							},
+							"name": "outputResult"
+						}
+					],
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\ta as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> inputSource\ninputSource derive(a = ((toInteger(a) + 10 -1 ) *10) / 5) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tex_id__c as string,\n\t\tName as string\n\t),\n\tpartitionFileNames:['calculation_10000000.csv'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> outputResult"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/input10000000')]",
+				"[concat(variables('factoryId'), '/datasets/outputCalculationResult')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/transorm sass')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -649,267 +725,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/input_sass_file')]",
 				"[concat(variables('factoryId'), '/datasets/output_sass_file')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/demo1 - sass etl')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "sass to local",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SalesforceSource",
-								"readBehavior": "query"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"dataIntegrationUnits": 8,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "ex_id__c",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ex_id__c",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Name",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "String"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "Salesforce_object",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "input_sass_file",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "Transform",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [
-							{
-								"activity": "sass to local",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "1.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "transorm sass",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"SassSource": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 144,
-								"computeType": "ComputeOptimized"
-							},
-							"traceLevel": "Fine"
-						}
-					},
-					{
-						"name": "local to sass",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "Transform",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "SalesforceSink",
-								"writeBatchSize": 5000,
-								"writeBehavior": "upsert",
-								"externalIdFieldName": "ex_id__c",
-								"ignoreNullValues": true
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "ex_id__c",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ex_id__c",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Name",
-											"type": "String"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "output_sass_file_with_file_name",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "Salesforce_object",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Salesforce_object')]",
-				"[concat(variables('factoryId'), '/datasets/input_sass_file')]",
-				"[concat(variables('factoryId'), '/dataflows/transorm sass')]",
-				"[concat(variables('factoryId'), '/datasets/output_sass_file_with_file_name')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/demo3 - calculate 100 record')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "calculate 100 record",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "1.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "calculate 100 rows",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"inputSource": {},
-									"outputResult": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/calculate 100 rows')]"
 			]
 		}
 	]
