@@ -257,7 +257,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "decompress",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -306,13 +306,69 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "compress",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "decompress",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"dataIntegrationUnits": 16
+						},
+						"inputs": [
+							{
+								"referenceName": "inputTextFile",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "outputZipFile",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/inputZipfile')]",
-				"[concat(variables('factoryId'), '/datasets/outputTextFile')]"
+				"[concat(variables('factoryId'), '/datasets/outputTextFile')]",
+				"[concat(variables('factoryId'), '/datasets/inputTextFile')]",
+				"[concat(variables('factoryId'), '/datasets/outputZipFile')]"
 			]
 		},
 		{
