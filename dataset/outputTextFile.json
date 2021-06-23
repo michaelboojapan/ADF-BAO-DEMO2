@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "bao2.txt",
 				"folderPath": "output",
 				"container": "containerbao"
 			}
