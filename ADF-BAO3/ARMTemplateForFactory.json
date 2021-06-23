@@ -1115,7 +1115,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "demo4 - calculate 100000 record",
+							"referenceName": "demo4 - calculate 10000000 record",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -1133,7 +1133,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/demo4 - calculate 100000 record')]"
+				"[concat(variables('factoryId'), '/pipelines/demo4 - calculate 10000000 record')]"
 			]
 		}
 	]
