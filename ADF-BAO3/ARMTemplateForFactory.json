@@ -469,6 +469,74 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/input100000')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageBaoDemo2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "calculation_100000.csv",
+						"folderPath": "input",
+						"container": "containerbao"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "a",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageBaoDemo2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input10000000')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageBaoDemo2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "calculation_10000000.csv",
+						"folderPath": "input",
+						"container": "containerbao"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "a",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageBaoDemo2')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/inputTextFile')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -559,7 +627,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/output100')]",
+			"name": "[concat(parameters('factoryName'), '/outputCalculationResult')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -818,7 +886,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "output100",
+								"referenceName": "outputCalculationResult",
 								"type": "DatasetReference"
 							},
 							"name": "outputResult"
@@ -834,7 +902,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/input100')]",
-				"[concat(variables('factoryId'), '/datasets/output100')]"
+				"[concat(variables('factoryId'), '/datasets/outputCalculationResult')]"
 			]
 		},
 		{

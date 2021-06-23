@@ -133,6 +133,74 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/input100000')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageBaoDemo2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "calculation_100000.csv",
+						"folderPath": "input",
+						"container": "containerbao"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "a",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageBaoDemo2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input10000000')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageBaoDemo2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "calculation_10000000.csv",
+						"folderPath": "input",
+						"container": "containerbao"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "a",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageBaoDemo2')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/inputTextFile')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -223,7 +291,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/output100')]",
+			"name": "[concat(parameters('factoryName'), '/outputCalculationResult')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -526,7 +594,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "output100",
+								"referenceName": "outputCalculationResult",
 								"type": "DatasetReference"
 							},
 							"name": "outputResult"
@@ -542,7 +610,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/input100')]",
-				"[concat(variables('factoryId'), '/datasets/output100')]"
+				"[concat(variables('factoryId'), '/datasets/outputCalculationResult')]"
 			]
 		},
 		{
@@ -842,37 +910,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/calculate 100 rows')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/demo1 - triger-1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "demo1 - sass etl",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 10,
-						"startTime": "2021-06-23T17:14:00",
-						"endTime": "2021-06-23T18:14:00",
-						"timeZone": "Tokyo Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/demo1 - sass etl')]"
 			]
 		}
 	]
