@@ -1104,6 +1104,37 @@
 				"[concat(variables('factoryId'), '/datasets/input_sass_file')]",
 				"[concat(variables('factoryId'), '/datasets/output_sass_file')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/domo4 - trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "demo4 - calculate 100000 record",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2021-06-24T03:28:00",
+						"timeZone": "Tokyo Standard Time",
+						"schedule": {}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/demo4 - calculate 100000 record')]"
+			]
 		}
 	]
 }
