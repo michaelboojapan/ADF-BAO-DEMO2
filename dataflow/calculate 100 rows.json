@@ -1,0 +1,32 @@
+{
+	"name": "calculate 100 rows",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "input100",
+						"type": "DatasetReference"
+					},
+					"name": "inputSource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "output100",
+						"type": "DatasetReference"
+					},
+					"name": "outputResult"
+				}
+			],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\ta as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> inputSource\ninputSource derive(a = ((toInteger(a) + 10 -1 ) *10) / 5) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tex_id__c as string,\n\t\tName as string\n\t),\n\tpartitionFileNames:['calculation_100.csv'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> outputResult"
+		}
+	}
+}

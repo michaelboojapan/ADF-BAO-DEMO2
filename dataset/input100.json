@@ -1,0 +1,29 @@
+{
+	"name": "input100",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageBaoDemo2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "calculation_100.csv",
+				"folderPath": "input",
+				"container": "containerbao"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "a",
+				"type": "String"
+			}
+		]
+	}
+}
