@@ -349,7 +349,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "bao2.txt",
+						"fileName": "bao1.txt",
 						"folderPath": "input",
 						"container": "containerbao"
 					}
@@ -373,7 +373,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "bao1.zip",
+						"fileName": "bao2.zip",
 						"folderPath": "input",
 						"container": "containerbao"
 					},
@@ -462,7 +462,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "bao2.txt",
 						"folderPath": "output",
 						"container": "containerbao"
 					},
