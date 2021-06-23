@@ -1,0 +1,25 @@
+{
+	"name": "demo1 - triger-1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "demo1 - sass etl",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 10,
+				"startTime": "2021-06-23T17:14:00",
+				"endTime": "2021-06-23T18:14:00",
+				"timeZone": "Tokyo Standard Time"
+			}
+		}
+	}
+}
