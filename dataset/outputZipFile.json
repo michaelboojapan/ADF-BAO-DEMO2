@@ -1,0 +1,23 @@
+{
+	"name": "outputZipFile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageBaoDemo2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "bao2.txt",
+				"folderPath": "output",
+				"container": "containerbao"
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Fastest"
+			}
+		}
+	}
+}
