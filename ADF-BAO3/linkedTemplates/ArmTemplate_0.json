@@ -226,7 +226,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "bao2.zip",
+						"fileName": "bao1.zip",
 						"folderPath": "output",
 						"container": "containerbao"
 					},
