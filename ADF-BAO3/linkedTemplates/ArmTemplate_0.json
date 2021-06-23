@@ -366,7 +366,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "inputTextFile",
+								"referenceName": "outputTextFile",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -377,7 +377,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/inputZipfile')]",
-				"[concat(variables('factoryId'), '/datasets/inputTextFile')]"
+				"[concat(variables('factoryId'), '/datasets/outputTextFile')]"
 			]
 		},
 		{
