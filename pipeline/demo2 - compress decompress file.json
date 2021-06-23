@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "decompress",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -47,6 +47,58 @@
 				"outputs": [
 					{
 						"referenceName": "outputTextFile",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "compress",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "decompress",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"dataIntegrationUnits": 16
+				},
+				"inputs": [
+					{
+						"referenceName": "inputTextFile",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "outputZipFile",
 						"type": "DatasetReference"
 					}
 				]
