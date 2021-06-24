@@ -4,20 +4,20 @@
 	"parameters": {
 		"factoryName": {
 			"type": "string",
-			"metadata": "Data Factory name",
+			"metadata": "データ ファクトリ名",
 			"defaultValue": "ADF-BAO3"
 		},
 		"AzureBlobStorageBaoDemo2_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageBaoDemo2'"
+			"metadata": "'AzureBlobStorageBaoDemo2' の 'connectionString' のセキュリティで保護された文字列"
 		},
 		"SalesforceBaoDemo2_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SalesforceBaoDemo2'"
+			"metadata": "'SalesforceBaoDemo2' の 'password' のセキュリティで保護された文字列"
 		},
 		"SalesforceBaoDemo2_securityToken": {
 			"type": "secureString",
-			"metadata": "Secure string for 'securityToken' of 'SalesforceBaoDemo2'"
+			"metadata": "'SalesforceBaoDemo2' の 'securityToken' のセキュリティで保護された文字列"
 		},
 		"SalesforceBaoDemo2_properties_typeProperties_environmentUrl": {
 			"type": "string",

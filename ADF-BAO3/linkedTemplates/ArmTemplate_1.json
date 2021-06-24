@@ -4,7 +4,7 @@
 	"parameters": {
 		"factoryName": {
 			"type": "string",
-			"metadata": "Data Factory name",
+			"metadata": "データ ファクトリ名",
 			"defaultValue": "ADF-BAO3"
 		}
 	},
@@ -338,7 +338,7 @@
 							"staging": {},
 							"compute": {
 								"coreCount": 8,
-								"computeType": "General"
+								"computeType": "MemoryOptimized"
 							},
 							"traceLevel": "Fine"
 						}
@@ -401,8 +401,7 @@
 						"frequency": "Day",
 						"interval": 1,
 						"startTime": "2021-06-24T03:28:00",
-						"timeZone": "Tokyo Standard Time",
-						"schedule": {}
+						"timeZone": "Tokyo Standard Time"
 					}
 				}
 			},
